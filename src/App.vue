@@ -1,6 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HelloWorld fname = "Central" v-bind:mail="mail" lname="Cee"/>
 </template>
 
 <script>
@@ -10,7 +9,29 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  data(){
+    return{
+      mail:'',
+      fname: '',
+      lname:''
+    }
+    
+  },
+  methods:
+  {
+    getUserData(){
+      this.axios.get('https://randomuser.me/api/').then((response) => {
+        console.log(response.data)  
+        this.mail = response.data.results[0].email // подставляем данные от сервера
+      })
+    }
+  },
+  mounted(){
+    this.getUserData();
   }
+    
+  
 }
 </script>
 
